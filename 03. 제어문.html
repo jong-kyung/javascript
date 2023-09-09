@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문</title>
+</head>
+
+<body>
+    <h1>제어문</h1>
+    <ul>
+        <li>제어문은 프로그램의 흐름을 제어하는 실행문</li>
+        <li>조건문 : if(), else if(), else</li>
+        <li>선택문 : switch</li>
+        <li>반복문 : for(), while(), do while()</li>
+    </ul>
+    <h2>실습예제</h2>
+    <ul>
+        <li>특정 사용자에게만 메세지 출력하기</li>
+        <li>월별 메시지 출력</li>
+        <li>포털사이트 주소 알려주기</li>
+        <li>메시지 반복하기</li>
+        <li style="color:red">홀짝별 색 다르게</li>
+        <li>구구단</li>
+    </ul>
+    <script>
+        // 문제) 사용자 이름을 입력받아 변수 name에 대입
+        // var name = prompt("당신의 이름은?","홍길동");
+        /*
+            if(name == "홍길동") {
+                    alert("홍길동님 환영합니다."); 
+                }
+                else if(name=="유관순") {
+                    alert("유관순님 환영합니다.");
+                }
+                else if(name=="춘향") {
+                    alert("춘향님 환영합니다.");
+                } else {
+                    alert("환영합니다")
+                } 
+        */
+
+        /*
+        switch(name) {
+            case "홍길동" : alert("홍길동님 환영합니다.") ; break;
+            case "유관순" : alert("유관순님 환영합니다.") ; break;
+            case "춘향" : alert("춘향님 환영합니다.") ; break;
+            default : alert("환영합니다.") }
+        */
+        // default는 break를 쓰지 않음 이미 실행문이 끝났기 때문
+        // break는 실행문을 종료시키는 속성임. 다음으로 넘어가지 않게하기 위함
+
+        /*
+    
+        // 문제) 계절별 메시지
+                var month = prompt("당신이 태어난 달은?",1)
+            if (month >= 3 && month<=5) {
+                document.write("봄에 태어나셨군요")
+            } else if (month >=6 && month<=9){
+                document.write("여름에 태어나셨군요")
+            } else if (month >=10 && month<=11){
+                document.write("가을에 태어나셨군요")
+            } else if (month == 12 || month<=2) {
+                document.write("겨울에 태어나셨군요")
+            } else {
+                alert("숫자로 입력해주세요.")
+            }
+        */
+
+        // 문제) 포털사이트 주소 알려주기
+        /*
+             var domain = prompt("당신이 사용하는 검색엔진은?")
+             switch(domain) {
+                 case "네이버" : case "naver" : document.write("네이버의 주소는 www.naver.com 입니다") ; break;
+                 case "구글" : case "google" : document.write("구글의 주소는 www.google.com 입니다") ; break;
+                 case "네이트" : case "nate" : document.write("네이트의 주소는 www.nate.net 입니다") ; break;
+                 case "다음" : case "daum" : document.write("다음의 주소는 www.daum.net 입니다") ; break;
+                 default : document.write("알 수 없는 검색엔진 입니다.")
+             }
+         */
+
+        // while(조건식) {실행문}
+        // 화면에 1. 안녕하세요 <br> 2. 안녕하세요 ~~~
+        /*
+            var n= 1;
+            while(n <= 10) {
+                document.write((n++) + ". 안녕하세요<br>");
+                // n++
+            }
+            document.write("<hr>")
+            n= 1;
+        */
+
+        //do while문
+        // do {실행문} while (조건)
+        /*
+          do {    
+                document.write((n++) + ". 안녕하세요<br>") 
+            } while (n<=10)
+            document.write("<hr>")
+        */
+
+        // for 문
+        /*
+            for(var i=1; i<=10;) { //10 번 반복
+                document.write((i++) + ". 안녕하세요<br>") 
+            }
+        */
+        //for(초기값; 조건문; 증감식) -> for 태그에서만 임시사용 / var는 메모리에 남는 선언임
+
+        // 홀짝별 숫자 색 다르게
+        /*
+            for(var i=1; i<=100;i++) {
+                if (i%2==0){
+                    document.write("<span style='color:red'>"+i+"</span>"+ " ") // 짝수
+                } else {
+                    document.write(i+" "); //홀수
+                }
+            }
+        */
+
+        //구구단
+        // for (var k=2; k<=9; k++) { //8번 반복
+        // document.write("<h2>"+ k +"단</h2>")
+        // for (var i=1; i<=9; i++) { //9번 반복
+        //     document.write( k+"x "+ i + " = " + k*i +" <br>");
+        // }
+        // }
+
+        // 과제) 테이블소스를 for 문을 이용해서 작성해오기 20줄, 칸수 30칸
+        document.write("<table cellpadding=5>")
+        var n = 1;
+        var emo = "👿"
+        for (var k = 1; k <= 20; k++) {
+            document.write("<tr>")
+            for (var i = 1; i <= 30; i++) {
+                if (n == 350) {
+                    emo = "😈";
+                } else {
+                    emo = "👿"
+                }
+                document.write("<td>" + emo + "</td>")
+                n++;
+            }
+            document.write("</tr>")
+        }
+        document.write("</table>")
+    </script>
+</body>
+
+</html>

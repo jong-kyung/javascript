@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 기본</title>
+    <style>
+        .on {
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>jQuery 기본</h1>
+    <ul>
+        <li>제이쿼리는 자바스크립트로 만들어진 라이브러리(프레임워크)</li>
+        <li>라이브러리(jQuery....)는 함수(특정기능)를 만들어놓은 것</li>
+        <li>프레임워크(vue, react, angular..)는 작업환경을 제공하는 것</li>
+        <li>버전 1.xx(구 브라우저와 호환), 2.xx(구버전x, 가볍게 이용하기 위함),3.xxx(기능강화, 구버전x)</li>
+        <li>minified : 압축버전, slim(간소화버전, 애니메이션+ajax 등 몇 가지를 제외한 버전)</li>
+        <li>https://releases.jquery.com/</li>
+    </ul>
+    <h2>주요 메서드</h2>
+    <ul id="mm">
+        <li class="on">css() : style 속성을 변경, 가져올 때</li>
+        <li>attr() / removeAttr() : 요소의 속성을 변경, 가져올 때 / 속성을 지울 때</li> <input type="text">
+        <li>html() : html로 가져오거나 대입</li>
+        <li>text() : text로 가져오거나 대입</li>
+        <li>addClass(), removeClass(), toggleClass() : 클래스 지정 메서드들</li>
+    </ul>
+    <h2>수치관련 메서드들</h2>
+    <ul>
+        <li>width()/height() : 폭, 높이값을 적용/가져올 때</li>
+        <li>offset() : 절대좌표값을 반환, offset().left</li>
+        <li>scrollTop() : 스크롤 높이값을 가져오거나 지정</li>
+    </ul>
+    <button>현재 버튼의 크기는?</button>
+    <button>현재 버튼의 위치는?</button>
+    <button>현재 스크롤 값은?</button>
+    <h2>객체(DOM) 편집 메서드</h2>
+    <ul id="edit">
+        <li>before() : 선택자 앞에 내용 추가<button>before()</button></li>
+        <li>after() : 선택자 뒤에 내용 추가 <button>after()</button></li>
+        <li>append() : 선택자 자식의 맨뒤로 추가<button>append()</button></li>
+        <li>prepend() : 선택자 자식의 맨앞으로 추가<button>prepend()</button></li>
+        <li>clone() : 선택한 요소를 복사<button>clone()</button></li>
+        <li>remove() : 선택한 요소를 삭제 <button>remove()</button></li>
+        <li>empty() : 선택자 자식을 모두 지움</li>
+    </ul>
+    <h2>기타 메서드</h2>
+    <ul>
+        <li>parent() : 선택자 부모를 선택</li>
+        <li>children("li") : 선택자 자식을 선택</li>
+        <!-- 자식 중 li를 찾아라 -->
+        <li>not("") : 괄호 안을 제외한 나머지 선택</li>
+        <!-- css 의 :not()과 유사 -->
+        <li>next() : 선택자 다음 형제를 선택</li>
+        <!-- css의 +와 유사 -->
+        <li>prev() : 선택자 이전 형제를 선택</li>
+        <li>hasClass("on") : 선택자에 클래스가 있으면 true, 없으면 false값 반환</li>
+        <li>val() : value 속성값을 얻거나 지정</li>
+        <li>is(":checked") : 선택자에 checked 속성이 있으면 true, 없으면 false, :selected / :visible / :hidden</li>
+        <li>get(0) : 선택자를 자바스크립트 선택자로 변환</li>
+        <li>each() : 선택자 갯수만큼 반복할 때 유용</li>
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        // $("li").css("color","red"); // jQuery() 함수 ==> $
+        // alert($("li").css("color")); // color값을 가져옴
+        $("input").attr("type", "color");
+        // alert($("#mm li:nth-of-type(4)").text());
+        // 두번째 li에 클래스 'on' 추가
+        $("#mm li:eq(1)").addClass("on"); // eq 는 숫자 0부터셈 같은형제가 아니어도 갯수를 셈
+        // 첫번째 li에 클래스 'on' 제거
+        $("#mm li").eq(0).removeClass("on"); // eq는 메서드로도 사용가능 제이쿼리에서만 사용 가능
+        // 세번째 li에 클래스 'on'을 토글
+        $("#mm li").eq(2).toggleClass("on");
+        $("button:eq(0)").click(function () {
+            alert("현재 버튼의 크기는" + $(this).width() + "x" + $(this).height() + "입니다")
+        });
+        $("button:eq(1)").click(function () {
+            alert("left : " + $(this).offset().left + "top : " + $(this).offset().top)
+        });
+        $("button:eq(2)").click(function () {
+            // alert($(window).scrollTop());
+            $(window).scrollTop(0);
+        })
+        $("button:eq(3)").click(function () {
+            $(this).before("<strong>추가내용</strong>");
+        })
+        $("button:eq(4)").click(function () {
+            $(this).after("<strong>추가내용</strong>");
+        })
+        $("button:eq(5)").click(function () {
+            $("#edit").append("<li>추가내용</li>");
+        })
+        $("button:eq(6)").click(function () {
+            $("#edit").prepend("<li>추가내용</li>");
+        })
+        $("button:eq(7)").click(function () {
+            var copy = $(this).clone();
+            $(this).after(copy);
+        })
+        $("button:eq(8)").click(function () {
+            $(this).remove();
+        })
+    </script>
+</body>
+
+</html>

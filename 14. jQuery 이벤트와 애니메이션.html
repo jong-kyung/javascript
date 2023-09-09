@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트와 애니메이션</title>
+    <style>
+        #con {
+            background: red;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이벤트와 애니메이션</h1>
+    <h2>이벤트</h2>
+    <ul>
+        <li>load() : 선택자의 자손을 포함한 외부소스가 로딩이 완료된 후 이벤트 실행</li>
+        <li>ready() : 선택자의 html 요소만 로딩 후 이벤트 실행</li>
+        <li>이벤트 (렌더링)순서 : DOM 생성 > ready() > 렌더링(콘텐츠표현) > load()</li>
+        <li>click() / dblclick()</li>
+        <li>mouseout() / mouseover() : 마우스가 벗어났을 때, 마우스가 호버했을 때</li>
+        <li>mousemove() / mousedown() : 마우스가 움직일 때, 마우스가 클릭을 했을 때(keydown과 비슷 / 누르자마자 실행)</li>
+        <li>focus() / blur() : 포커스를 얻었을 때, 잃었을 때</li>
+        <li>keypress() / keydown() : 키눌렀을 때(특수키x), 대문자만(특수키o)</li>
+        <li>keyup() : 키를 (눌렀다) 떼었을 때</li>
+        <li>scroll() : 스크롤 했을 때</li>
+        <li>change() : 값이 변경 되었을 때</li>
+        <li>on() : 이벤트리스너(이벤트 감시자), 여러개의 이벤트를 걸거나 동적요소에 이벤트를 걸때 : $(선택자).on(이벤트종류,이벤트대상,함수정의)</li>
+        <!-- 자바스크립트의 addEventListener와 비슷 -->
+    </ul>
+    <h2>효과 및 애니메이션</h2>
+    <ul>
+        <li>hide() : 선택자를 안보이게 숨김 <button>hide()</button></li>
+        <li>show() : 선택자를 보이게 함<button>show()</button></li>
+        <li>toggle() : 토글(숨김/보임) <button>toggle()</button></li>
+        <li>fadeIn() : 점점 보이게 <button>fadeIn()</button></li>
+        <li>fadeOut() : 점점 안보이게 <button>fadeOut()</button></li>
+        <li>fadeToggle() : 부드럽게 토글 <button>fadeToggle()</button></li>
+        <li>slideUp() : 위로 숨김<button>slideUp()</button></li>
+        <li>slideDown() : 위로 보임<button>slideDown()</button></li>
+        <li>slideToggle() : 위/아래로 토글 <button>slideToggle()</button></li>
+        <li>animate() : 애니메이션 적용<button>움직여</button></li>
+    </ul>
+    <div id="con"></div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $("button").eq(0).click(function () {
+            $(this).parent().hide();
+        })
+        $("button").eq(1).click(function () {
+            $(this).parent().prev().show();
+        })
+        $("button").eq(2).click(function () {
+            $(this).parent().prev().toggle();
+        })
+        $("button").eq(4).click(function () {
+            $(this).fadeOut(1000);
+        })
+        $("button").eq(6).click(function () {
+            $("#con").slideUp();
+        })
+        $("button").eq(7).click(function () {
+            $("#con").slideDown();
+        })
+        $("button").eq(8).click(function () {
+            $("#con").slideToggle();
+        })
+        $("button").eq(9).click(function () {
+            $("#con").animate({
+                marginLeft: "300px",
+                marginTop: "-100px"
+            }, 1000)
+                .animate({
+                    marginTop: "-400px"
+                }, 1000, function () {
+                    alert("애니메이션 끝")
+                });
+        })
+        $("#con").animate({
+            marginLeft: "400px"
+        }, 1000).delay(1000).animate({ // delay 는 setTimeOut과 유사한 기능 
+            marginTop: "-500px"
+        }, 1000)
+    </script>
+</body>
+
+</html>

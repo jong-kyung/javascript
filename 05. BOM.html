@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+</head>
+<body>
+<h1>BOM(Browser Object Model)</h1>
+<ul>
+    <li>브라우저에서 제공하는 객체모델</li>
+    <li>window, screen, location, history, navigator</li>
+    <!-- window : 브라우저 창, screen : 모니터, location : 주소창, history : 뒤로가기,앞으로가기. navigator : 브라우저의 정보 -->
+    <li>window: open(), alert(),prompt(), confirm(), moveTo(), resizeTo(), setInterval() 반복실행, setTimeout() 지연실행</li>
+    <li>screen: width, height, colorDepth</li>
+    <li>location: href, hash, hostname, protocol</li>
+    <li>history: back(), forward()</li>
+    <li>navigator: appCodeName, appName, language, product, platform, userAgent</li>
+</ul>
+<p id="time"></p>
+<p id="delay"></p>
+<p id="clock"></p>
+<script>
+
+    // setInterval(함수자리,시간);
+    setInterval(function(){
+        // document.write("안녕 <br>")
+        var today = new Date();
+        var daytime, day=today.getHours(), minu=today.getMinutes() ,seco=today.getSeconds();
+        if(today.getHours()>12){
+            daytime = "PM";
+            day = today.getHours()-12;
+        } else {
+            daytime = "AM";
+            day = today.getHours();
+        }
+        if(day < 10)  day = "0" + day; 
+        if(minu < 10)  minu = "0" + today.getMinutes(); 
+        if(seco < 10)  {seco = "0" + today.getSeconds()}; 
+        document.getElementById("time").innerText = daytime + " " + day +":" + minu + ":"+ seco;
+    },1000);
+    //과제 AM 2:30:43 
+    var clock = document.querySelector("#clock");
+
+    function getClock() {
+    var date = new Date();
+    var hours = String(date.getHours()).padStart(2, "0");
+    var min = String(date.getMinutes()).padStart(2, "0");
+    var sec = String(date.getSeconds()).padStart(2, "0");
+    var am;
+    if(date.getHours()>12){
+        am = "오후 "
+        hours = String((date.getHours()-12)).padStart(2, "0")
+    } else {
+        am = "오전 "
+    }
+    clock.innerText = `${am}${hours}:${min}:${sec}`;
+    }
+    getClock();
+    setInterval(getClock, 1000);
+
+    // 지연실행 setTimeout()
+    setTimeout(function(){
+        document.getElementById("delay").innerText = "지연 실행됨"
+    },2000);
+
+    // screen 객체
+    document.write("screen.width :" +screen.width);
+    document.write("<br>screen.height :" +screen.width)
+    document.write("<br>screen.colorDepth :" +screen.colorDepth);
+
+    //location 객체
+    document.write("<br>location.href :" +location.href);
+    // location.href ="http://naver.com";
+    document.write("<br>location.hash :" +location.hash);
+    document.write("<br>location.host :" +location.host);
+    document.write("<br>location.hostname :" +location.hostname);
+    document.write("<br>location.protocol :" +location.protocol);
+
+    //history 객체
+    // history.back(); // 뒤로가기
+    // history.back(-2); // 뒤로 뒤로가기
+    // history.forward(); // 앞으로 가기
+
+    // navigator 객체
+    console.log("appCodeName : " + navigator.appCodeName);
+    console.log("appName : " + navigator.appName);
+    console.log("appVersion : " + navigator.appVersion);
+    console.log("product : " + navigator.product);
+    console.log("platform : " + navigator.platform);
+    console.log("userAgent : " + navigator.userAgent);
+</script>
+</body>
+</html>

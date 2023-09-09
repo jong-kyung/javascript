@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM(Document Object Model)</title>
+    <style>
+        body {
+            color: black
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DOM(Document Object Model)</h1>
+    <ul>
+        <li>HTML 문서의 구조와 그 정보를 말함.</li>
+        <!-- HTML의 부모는 DOM, DOM의 부모는 윈도우 -->
+        <li>선택자.명령/속성</li>
+        <li id="first" style="color: red">아이디 선택자: getElementById()</li>
+        <li class="blue" style="color:purple">클래스 선택자: getElementsByClassName</li>
+        <li style="color:green">요소 선택자 : getElementsByTagName() </li>
+        <li>css 선택자 : querySelector("css선택자")</li>
+        <li>복수 css 선택자 : querySelectorAll("css선택자")</li>
+        <li>폼선택자 : document.("formName")</li>
+        <li>선택자.style.속성 : css 속성을 얻거나 설정</li>
+        <li style="background: gray;" id="aa">선택자.태그의 속성명 : 요소의 속성값을 얻거나 설정</li>
+        <li>선택자.innerText : <strong>글자내용을 얻거나 바꿀때</strong></li>
+    </ul>
+    <button type="button">red</button>
+    <button type="button">green</button>
+    <button type="button">reset</button>
+    <button type="button">copy(txt)</button>
+    <button type="button">copy(html)</button>
+    <input type="text"></input><button type="button">custom</button>
+    <p id="txt"></p>
+    <!--  value="밸류는 써져있는 값임" value는 placeholder와 다름. -->
+    <form name="f1">
+    </form>
+    <script>
+        // alert(document.getElementById("first").style.color);
+        // 기본적으로 자바스크립트는 인라인 css는 인식하지만 외부나 , 내부로 작성할 경우 인식을 못함
+        // alert(document.getElementsByClassName("blue")[0].style.color);
+        // 여러개이기때문에 []없이는 적용이 안됨. ==> 몇번째인지 지목을 해주어야함.
+        // alert(document.getElementsByTagName("li")[4].style.color);
+        document.querySelector("li:nth-child(6)").style.color = "blue";
+        // alert(document.querySelector("li:nth-child(10)").id);
+        document.querySelector("button").onclick = function () {
+            document.querySelector("body").style.backgroundColor = "red"
+            document.querySelector("body").style.color = "white"
+        }
+        document.querySelector("button:nth-of-type(2)").onclick = function () {
+            document.querySelector("body").style.backgroundColor = "green"
+            document.querySelector("body").style.color = "white"
+        }
+        document.querySelector("button:nth-of-type(3)").onclick = function () {
+            document.querySelector("body").style.backgroundColor = ""
+            document.querySelector("body").style.color = ""
+        }
+        // 글을 읽어올때
+        alert(document.querySelector("li:nth-child(11)").innerText);
+
+        // 글을 복붙
+        // document.querySelector("button:nth-of-type(4)").onclick = function() {
+        //     document.querySelector("p").innerText = document.querySelector("li:nth-child(11)").innerText;
+        // }
+        // copy 버튼
+        document.querySelector("button:nth-of-type(4)").onclick = function () {
+            var txt = document.querySelector("li:nth-child(11)").innerText;
+            document.querySelector("#txt").innerText = txt;
+        }
+
+        // copy(html) 버튼
+        document.querySelector("button:nth-of-type(5)").onclick = function () {
+            var txt = document.querySelector("li:nth-child(11)").innerHTML;
+            document.querySelector("#txt").innerHTML = txt;
+        }
+
+        // custom 버튼 : 사용자가 입력한 값을 경고창에
+        document.querySelector("button:nth-of-type(6)").onclick = function () {
+            var txt = document.querySelector("input").value
+            document.querySelector("body").style.backgroundColor = txt
+            document.querySelector("body").style.color = "#fff";
+            // alert(txt);
+        }   
+    </script>
+</body>
+
+</html>

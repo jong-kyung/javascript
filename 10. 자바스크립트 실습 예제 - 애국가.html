@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>애국가</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            border: 1px dashed #ccc;
+        }
+
+        main {
+            text-align: center;
+        }
+
+        main h2 {
+            padding: 20px
+        }
+
+        main p {
+            margin: 20px;
+        }
+
+        main a {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>디자인 변경 커스터마이징</h1>
+    <nav>
+        <header>
+            <button id="size_up">이미지 +</button>
+            <!-- 이미지 크게 -->
+            <button>이미지 0</button>
+            <!-- 이미지 크기 초기화 -->
+            <button>이미지 -</button>
+            <!-- 이미지 크기 줄이기 -->
+            글자색<input type="color">
+            배경색<input type="color">
+            <button>글자 +</button>
+            <button>글자 0</button>
+            <button>글자 -</button>
+            <label><input type="radio" name="align">왼쪽</label>
+            <label><input type="radio" name="align">가운데</label>
+            <label><input type="radio" name="align">오른쪽</label>
+    </nav>
+    </header>
+    <!-- 8,9번 활용 -->
+    <main>
+        <h2>애국가</h2>
+        <p>작사 미상/ 작곡 안익태</p>
+        <img src="../web/flag.png">
+        <p>1.동해물과 백두산이 마르고 닳도록<br>하느님이 보우하사 우리나라 만세<br>무궁화 삼천리 화려 강산<br>대한 사람 대한으로 길이 보전하세</p>
+        <p>2.남산 위에 저 소나무 철갑을 두른 듯<br>바람 서리 불변함은 우리 기상일세<br>무궁화 삼천리 화려 강산<br>대한 사람 대한으로 길이 보전하세<br></p>
+        <p>3.가을 하늘 공활한데 높고 구름 없이<br>밝은 달은 우리 가슴 일편 단심일세<br>무궁화 삼천리 화려 강산<br>대한 사람 대한으로 길이 보전하세<br></p>
+        <p>4.이 기상과 이 맘으로 충성을 다하여<br>괴로우나 즐거우나 나라 사랑하세<br>무궁화 삼천리 화려 강산<br>대한 사람 대한으로 길이 보전하세<br></p>
+        <a href="http://naver.com">네이버</a>
+    </main>
+    <script>
+        // // 내가 한거
+        // var bt = document.querySelectorAll("button")
+        // var ft = document.querySelectorAll("input")
+        // document.querySelector("img").style.width = "200px"
+        // document.querySelector("body").style.fontSize = "16px"
+        // // 이미지 크기 관련 함수
+        // function imageBig() {
+        //     var imageStyle = document.querySelector("img").style.width;
+        //     var image = parseInt(imageStyle);
+        //     image*= 2;
+        //     document.querySelector("img").style.width = image+"px"
+        // }
+        // function imageNormal() {
+        //     document.querySelector("img").style.width = "200px";
+        // }
+        // function imageSmall() {
+        //     var imageStyle = document.querySelector("img").style.width;
+        //     var image = parseInt(imageStyle);
+        //     image/= 2;
+        //     document.querySelector("img").style.width = image+"px"
+        // }
+        // // 색상 관련 함수
+        // function fontColor() {
+        //     var color = document.querySelector("input:nth-of-type(1)").value;
+        //     document.querySelector("body").style.color = color
+        // }
+        // function bgColor() {
+        //     var color = document.querySelector("input:nth-of-type(2)").value;
+        //     document.querySelector("body").style.backgroundColor = color
+        // }
+        // // 글자 크기 관련
+        // function textBig() {
+        //     var textSize = document.querySelector("body").style.fontSize;
+        //     var font = parseInt(textSize);
+        //     font += 2;
+        //     document.querySelector("body").style.fontSize = font+"px"
+        // }
+        // function textNormal() {
+        //     document.querySelector("body").style.fontSize = "16px"
+        // }
+        // function textSmall() {
+        //     var textSize = document.querySelector("body").style.fontSize;
+        //     var font = parseInt(textSize);
+        //     font -= 2;
+        //     document.querySelector("body").style.fontSize = font+"px"
+        // }
+        // bt[0].onclick = imageBig;
+        // bt[1].onclick = imageNormal;
+        // bt[2].onclick = imageSmall;
+        // ft[0].onchange = fontColor;
+        // ft[1].onchange = bgColor;
+        // bt[3].onclick = textBig;
+        // bt[4].onclick = textNormal;
+        // bt[5].onclick = textSmall;
+
+        //선생님 첨삭
+        var bt = document.querySelectorAll("button");
+        var img = document.querySelector("img");
+        var img_width = parseInt(getComputedStyle(img).width);
+        var img_reset = getComputedStyle(img).width;
+        // getComputedStyle ==> CSS를 가져오라는 속성임 / 렌더링된 이후의 css정보를 가져오라는 속성
+        bt[0].onclick = function () {
+            img_width += 10;
+            img.style.width = img_width + "px";
+        }
+        bt[1].onclick = function () {
+            img.style.width = img_reset;
+            img_width = parseInt(img_reset);
+        }
+        bt[2].onclick = function () {
+            img_width -= 10;
+            img.style.width = img_width + "px";
+        }
+
+        var input = document.querySelectorAll("input");
+        input[0].onchange = function () {
+            document.querySelector("main").style.color = this.value;
+        }
+        input[1].onchange = function () {
+            document.querySelector("main").style.backgroundColor = this.value;
+        }
+
+        var main = document.querySelector("main");
+        var font_size = parseInt(getComputedStyle(main).fontSize);
+        var font_reset = getComputedStyle(main).fontSize
+        bt[3].onclick = function () {
+            font_size++;
+            main.style.fontSize = font_size + "px"
+        }
+        bt[4].onclick = function () {
+            main.style.fontSize = font_reset;
+            font_size = parseInt(font_reset);
+        }
+        bt[5].onclick = function () {
+            font_size--;
+            main.style.fontSize = font_size + "px"
+        }
+
+        var label = document.querySelectorAll("label")
+        label[0].onclick = function () {
+            main.style.textAlign = "left";
+        }
+        label[1].onclick = function () {
+            main.style.textAlign = "center";
+        }
+        label[2].onclick = function () {
+            main.style.textAlign = "right";
+        }
+    </script>
+</body>
+
+</html>

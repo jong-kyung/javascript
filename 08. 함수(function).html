@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수(function)</title>
+    <style>
+        /* body {filter: invert(100%)} */
+    </style>
+</head>
+
+<body style="color:black; background:white">
+    <h1>함수(function)</h1>
+    <ul>
+        <li>함수란 실행문을 저장한 것!</li>
+        <li>함수의 정의 : function 이름() {실행문}</li>
+        <li>실행은 이름()</li>
+        <li>함수 정의문은 스크립트에서 가장 먼저 실행됨</li>
+        <!-- 자바스크립트는 기본적으로 함수를 먼저 읽고 다른스크립트를 읽기 때문에 순서는 크게 상관이 없다. 하지만 기본적으로 함수정의부터 한다. -->
+        <li>함수는 재활용(반복사용), 수정/업데이트에 유리</li>
+        <li>함수(매개변수) : 함수 호출시 함수안에서 활용할 데이터를 전달하는 수단</li>
+        <li>콜백함수 : 함수가 종료 후 실행되는 함수를 말함</li>
+        <li>재귀함수 : 자기 자신을 호출하는 함수</li>
+    </ul>
+    <p>글자색<input type="color" id="txt_color"></p>
+    <p>배경색<input type="color" id="bg_color"></p>
+    <button>디자인 적용</button>
+    <button>화면 반전</button>
+    <script>
+        // 문제) 글자색과 배경색을 가져와 디자인 적용
+        function changeBg(color, bg) {
+            var color = document.querySelector("#txt_color").value;
+            var bg = document.querySelector("#bg_color").value;
+            document.querySelector("body").style.backgroundColor = bg;
+            document.querySelector("body").style.color = color;
+        } //changeBg라는 method를 만들겠다. , 매개변수는 해당 함수에서만 사용가능함.
+        // () 안에 쓰는건 매개변수
+        document.querySelector("button").onclick = changeBg;
+
+        // 문제) 반전하는 기능
+        document.querySelector("button:nth-of-type(2)").onclick = function () {
+            var filter = document.querySelector("html").style.filter;
+            if (filter == "invert(100%)") {
+                document.querySelector("html").style.filter = ""
+            } else {
+                document.querySelector("html").style.filter = "invert(100%)"
+            }
+            // document.querySelector("body").style.filter = "invert(100%)"
+            // document.querySelector("body").style.filter = "none"
+        };
+    </script>
+</body>
+
+</html>

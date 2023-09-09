@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 기본</title>
+</head>
+
+<body>
+    <h1>자바스크립트 기본</h1>
+    <h2>자바스크립트의 특징</h2>
+    <ul>
+        <li>웹의 3요소 : 구조(html), 디자인(css), 동작(Jacascript)</li>
+        <li>브라우저에서 실행되는 세계에서 가장 많이 사용되는 언어</li>
+        <li>자바(백엔드)와 다른 클라이언트(프론트엔드) 언어</li>
+        <li>컴파일 과정이 없는 인터프리터 언어</li>
+        <li>소스가 노출, 원본에 대한 저작권 권리 행사가 힘듦.</li>
+        <li>플랫폼/운영체제 제한이 적음</li>
+        <li>Pure script, 순수스크립트, 바닐라스크립트는 라이브러리(jQuery)를 사용하지 않는 자바스크립트를 말함</li>
+        <li>라이브러리(명령어/함수를 미리 만들어 놓은 것), 프레임워크(작업환경을 제공, veu/angular/react....)</li>
+        <li>대소문자를 구분</li>
+        <li>실행문을 종료할때는 세미콜론(;) 적용</li>
+        <li style="font-family:'noto sans kr'">큰따옴표(")와 작은따옴표(') 겹침주의</li>
+        <!-- "font-family:"noto sans kr"" << 이런식으로 섞으면 안되고 구분이 되야함 -->
+        <li>모든 괄호 (), {}, []는 열고 닫는 원칙</li>
+        <li>주석 : /* 여러줄 주석 */, // 말꼬리주석, 한줄주석</li>
+    </ul>
+    <h2>자바스크립트 작성방법</h2>
+    <ul>
+        <li onclick="alert('나는 경고창')">인라인 스크립트 : 비권고</li>
+        <!-- alert : 경고창 만들기, 인라인 스크립트는 비표준 방식임 -->
+        <li>내부스크립트: script 요소(태그)로 head/body 안에 사용</li>
+        <li>외부스크립트: script 내용을 외부파일로 불러오는 방식</li>
+        <li>스크립트 위치는 /body 전이나 head에는 defer 속성을 권장</li>
+    </ul>
+    <h2>변수</h2>
+    <ul>
+        <li>변수란 변하는 수, 값, 데이터, 문자, 불리언(Boolean)값</li>
+        <!-- Boolean : true / false -->
+        <li>선언은 var 선언문, let, const</li>
+        <li>변수의 데이터형 : 문자, 숫자, 논리형, null, undefined</li>
+        <!-- 변수는 한글로하는건 좋지 않음 -->
+        <!-- 변수, 계산, 프로그래밍 ====> ""가 없음 -->
+        <!-- "문자" ====> ""가 있으면 문자 -->
+        <li>변수 네이밍 규칙<br>
+            - 첫글자는 숫자가 올 수 없다.<br>
+            - 특수기호, 빈칸, 한글은 안되고, 영문과 숫자로 조합<br>
+            - 기본적으로 소문자만 사용(이유있는 경우 제외)<br>
+            - 의미에 맞는 이름 사용<br>
+            - 언더바표기법(snakecase) : super_man<br>
+            - 낙타표기법(camelcase) : superMan<br>
+            - 같은 이름으로 중복 선언 x, 예약어(특정명령어, 컴퓨터와 약속된 단어...)와 같은 단어 사용불가<br>
+        </li>
+    </ul>
+    <!-- <script src="01.js"></script> -->
+    <script>
+        var num = 100; // num 변수 선언, 따옴표를 사용하면 문자가 됨
+        var num2 = 50; // num2 변수 선언하고 50을 대입
+        num = 901; // 선언문 없이도 가능하긴함 잘 알아들음
+        alert("num % num2 =" + num % num2 + "입니다.") //괄호를 쳐주면 먼저 계산됨 수학과 동일 %는 나머지 계산
+        // alert("결과 값은 " + num + num + "입니다."); // num이 만약 숫자면 더해지고 문자면 옆에 붙음
+        //슬래시부터 그 줄의 끝까지 주석임
+        /* 여러줄
+    
+            주석
+         */
+    </script>
+    <!-- script 태그는 바디태그 닫기전에 넣는게 권고사항임, 외부스크립트를 불러올땐 src태그 -->
+</body>
+
+</html>

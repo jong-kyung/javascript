@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트(Event)</title>
+</head>
+
+<body>
+    <h1>이벤트(Event)</h1>
+</body>
+<ul>
+    <li>이벤트란 방문자가 입장 이후의 모든 움직임(상호작용)을 이벤트,</li>
+    <li>onclick : <button>onclick</button></li>
+    <li>ondblclick : <button>ondblclick</button></li>
+    <li>onmouseover : <button>onmouseover</button></li>
+    <li>onmouseout : <button>onmouseout</button></li>
+    <!-- 마우스가 벗어났을 때 -->
+    <li>onmousemove : <button>onmousemove</button></li>
+    <!-- 버튼 위에서 움직일때 -->
+    <li>onkeypress : <button>onkeypress</button></li>
+    <!-- 버튼이 포커스가 있는 상태에서 키보드 자판을 눌렀을 때 -->
+    <li>onkeydown : <button>onkeydown</button></li>
+    <!-- 버튼이 포커스가 있는 상태에서 키보드 자판을 눌렀을 때(프레스와 기능이 유사) -->
+    <li>onkeyup : <button>onkeyup</button></li>
+    <!-- 버튼이 포커스가 있는 상태에서 키보드 자판을 눌렀다 (눌렀다)떼엇을 때 -->
+    <li>onfocus : 포커스를 얻었을 때<button>onfocus</button></li>
+    <li>onblur : 포커스를 잃었을 때<button>onblur</button></li>
+    <li>onchange : value 속성값이 바뀌었을 때<input type="color">onchange</li>
+    <li>onload : 하위요소가 모두 로딩되었을 때</li>
+    <li>onresize : 사이즈가 변했을 때</li>
+    <li>(폼문).onsubmit : 전송이 되었을 때</li>
+    <li>onreset : 취소 버튼을 눌렀을 때</li>
+    <li id="myLi">this 키워드 : 이벤트가 발생한 요소를 가리키는 키워드</li>
+    <!-- 이벤트내에서 사용하는 키워드임. -->
+    <li>return 키워드 : 함수/이벤트를 종료하고 값을 내보내는 기능</li>
+    <li>addEventListenr : 이벤트 중첩, 다중 이벤트가 가능</li>
+</ul>
+<script>
+    var bt = document.querySelectorAll("button");
+    var input = document.querySelectorAll("input");
+    bt[0].onclick = function () {
+        alert("온클릭");
+    }
+    bt[1].ondblclick = function () {
+        alert("더블클릭해봐라");
+    }
+    bt[2].onmouseover = function () {
+        alert("마우스가 오버되면 나옴");
+    }
+    bt[3].onmouseout = function () {
+        alert("마우스가 영역 밖으로 나가면 나옴");
+    }
+    bt[4].onmousemove = function () {
+        alert("마우스가 영역 내에서 움직이는 동안 나옴");
+    }
+    bt[5].onkeypress = function () {
+        alert("포커스하고 키보드 자판입력");
+    }
+    bt[6].onkeydown = function () {
+        alert("포커스하고 키보드 자판입력 프레스와 기능은 같아");
+    }
+    bt[7].onkeyup = function () {
+        alert("키보드에서 손 떼");
+    }
+    bt[8].onfocus = function () {
+        console.log("포커스 얻어");
+    }
+    bt[9].onblur = function () {
+        console.log("포커스 잃어");
+    }
+    input[0].onchange = function () {
+        alert("색상변경");
+    }
+    document.querySelector("#myLi").onclick = function () {
+        this.style.backgroundColor = "red";
+        return false; // return : flase - 프로그램을 중단하고 그 이후의 이벤트도 중단
+        alert(this.style.backgroundColor);
+    } // 해당 이벤트를 동작한 요소를 찾음
+    document.querySelector("li:last-child").addEventListener('click', function () {
+        alert("마지막 li 클릭됨");
+    })
+    // on을 빼면 그대로 사용 가능함. onclick으로 작성하면 안됨!
+</script>
+
+</html>

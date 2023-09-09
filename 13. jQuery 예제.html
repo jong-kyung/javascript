@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포켓몬스터</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            padding: 30px 0 20px;
+        }
+
+        button {
+            padding: 5px 10px;
+            border-radius: 30px;
+            border: 1px solid transparent
+        }
+
+        input {
+            padding: 5px 10px;
+            margin: 10px;
+        }
+
+        ul {
+            border: 5px solid #ccc;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 200px;
+            align-content: flex-start;
+        }
+
+        li {
+            background: #ccc;
+            padding: 10px 15px;
+            border-radius: 50px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        li.chk::after {
+            content: "\f00c";
+            font-family: 'FontAwesome';
+            position: absolute;
+            margin: -15px 0 0 -5px
+        }
+
+        li.msg {
+            background: transparent;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>포켓몬스터</h1>
+    <nav>
+        <div>
+            <button disabled="disabled">추가</button>
+            <!-- 값이 똑같기 때문에 = "disabled"를 생략할 수 있음 -->
+            <button>삭제</button>
+            <button>복사</button>
+            <button>비우기</button>
+            <button>초기화</button>
+        </div>
+        <input type="text">
+    </nav>
+    <ul>
+        <li>피카츄</li>
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        // 내가 한것
+        // $("button:eq(0)").click(function(){
+        //     var pokemon = $("input").val();
+        //     $("ul").append("<li>"+ pokemon +"</li>")
+        // });
+        // $("button:eq(1)").click(function(){
+        //     $("li:last-child").remove()
+        // })
+        // $("button:eq(2)").click(function(){
+        //     var copy = $("li:last-child").clone()
+        //     $("li:last-child").after(copy)
+        // })
+        // $("button:eq(3)").click(function(){
+        //     $("ul").empty()
+        // })
+        // $("button:eq(4)").click(function(){
+        //     $("ul").empty();
+        //     $("ul").prepend("<li>피카츄</li>");
+        // })
+
+        // 선생님 방식
+        $("input").focus();
+        //추가 버튼
+        $("button").eq(0).click(function () {
+            mon_add();
+            $(".msg").remove();
+        })
+
+
+        //삭제 버튼
+        $("button").eq(1).click(function () {
+            $(".chk").remove();
+            if ($("li").length == 0) {
+                $("ul").append("<li class='msg'>등록된 포켓몬이 없습니다.</li>")
+            }
+        })
+
+        //복사 버튼
+        $("button").eq(2).click(function () {
+            var cop = $(".chk").clone();
+            $("ul").append(cop);
+            $(".chk").removeClass();
+        })
+
+        // 비우기 버튼
+        $("button").eq(3).click(function () {
+            $("ul").empty();
+            $("ul").append("<li class='msg'>등록된 포켓몬이 없습니다.</li>")
+        })
+
+        //초기화 버튼
+        var reset = $("ul").html();
+        $("button").eq(4).click(function () {
+            $("ul").empty().append(reset);
+        })
+
+        // 선택 기능
+        $("ul").on("click", "li:not(.msg)", function () {
+            $(this).toggleClass("chk")
+        })
+
+        // input 기능
+        $("input").keyup(function (e) {
+            var mon = $("input").val();
+            if (mon.length > 0) {
+                $("button").eq(0).removeAttr("disabled");
+            } else {
+                $("button").eq(0).attr("disabled", "disabled");
+            }
+            if (e.keyCode == 13 && mon.length > 0) { //enter : 13
+                mon_add();
+                $(".msg").remove();
+            }
+        })
+        function mon_add() {
+            var mon = $("input").val();
+            $("ul").append("<li>" + mon + "</li>");
+            $("input").val("");
+            $("button").eq(0).attr("disabled", "disabled");
+        }
+    </script>
+</body>
+
+</html>

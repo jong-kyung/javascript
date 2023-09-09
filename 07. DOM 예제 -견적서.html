@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM예제 - 견적서</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid blue;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DOM예제 - 견적서</h1>
+    <table cellpadding="10">
+        <tr>
+            <td>옵션</td>
+            <td>가격</td>
+            <td>선택</td>
+        </tr>
+        <tr>
+            <td>인조가죽시트</td>
+            <td>250000</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>네비게이션</td>
+            <td>500000</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>선루프</td>
+            <td>300000</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>차량기본단가</td>
+            <td>20000000</td>
+            <td><input type="checkbox" checked disabled></td>
+            <!-- 체크를 못하게 막을땐 disabled -->
+        </tr>
+        <tr>
+            <td>견적가</td>
+            <td colspan="2">(자동계산됨)</td>
+        </tr>
+    </table>
+    <script>
+        // 최초 견적가 구하기(차량기본가 복사)
+        var td = document.querySelectorAll("td:nth-child(2)");
+        var price = td[4].innerText; // getter
+        td[5].innerText = price; //setter
+
+        // 체크하면 합산기능
+        // 인터버방식
+        // setInterval(function() {
+        //     var chk = document.querySelectorAll("input");
+        //     price = 0
+        //     if(chk[0].checked) {price += parseInt(td[1].innerText)} 
+        //     if(chk[1].checked) {price += parseInt(td[2].innerText)} 
+        //     if(chk[2].checked) {price += parseInt(td[3].innerText)} 
+        //     if(chk[3].checked) {price += parseInt(td[4].innerText)} 
+        //     ;
+        //     td[5].innerText = price
+        // }, 100);
+
+        // 온클릭 방식
+        // var chk = document.querySelectorAll("input");    
+        //     chk[0].onclick = function() {
+        //         var chk = document.querySelectorAll("input");
+        //             price = 0;
+        //             if(chk[0].checked) {price += parseInt(td[1].innerText) ;}
+        //             if(chk[1].checked) {price += parseInt(td[2].innerText) ;}
+        //             if(chk[2].checked) {price += parseInt(td[3].innerText) ;}
+        //             if(chk[3].checked) {price += parseInt(td[4].innerText) ;}
+        //             td[5].innerText = price;
+        //     }
+
+        //     chk[1].onclick = function() {
+        //         var chk = document.querySelectorAll("input");
+        //             price = 0;
+        //             if(chk[0].checked) {price += parseInt(td[1].innerText) ;}
+        //             if(chk[1].checked) {price += parseInt(td[2].innerText) ;}
+        //             if(chk[2].checked) {price += parseInt(td[3].innerText) ;}
+        //             if(chk[3].checked) {price += parseInt(td[4].innerText) ;}
+        //             td[5].innerText = price;
+        //     }
+
+        //     chk[2].onclick = function() {
+        //         var chk = document.querySelectorAll("input");
+        //             price = 0;
+        //             if(chk[0].checked) {price += parseInt(td[1].innerText) ;}
+        //             if(chk[1].checked) {price += parseInt(td[2].innerText) ;}
+        //             if(chk[2].checked) {price += parseInt(td[3].innerText) ;}
+        //             if(chk[3].checked) {price += parseInt(td[4].innerText) ;}
+        //             td[5].innerText = price;
+        //     }
+
+        //     chk[3].onclick = function() {
+        //         var chk = document.querySelectorAll("input");
+        //             price = 0;
+        //             if(chk[0].checked) {price += parseInt(td[1].innerText) ;}
+        //             if(chk[1].checked) {price += parseInt(td[2].innerText) ;}
+        //             if(chk[2].checked) {price += parseInt(td[3].innerText) ;}
+        //             if(chk[3].checked) {price += parseInt(td[4].innerText) ;}
+        //             td[5].innerText = price;
+        //     }
+        // 체크를 했을 때는 합산, 체크를 풀었을 때는 감산
+
+        //선생님 방식
+        var chk = document.querySelectorAll("input");
+        chk[0].onclick = function () {
+            var total = td[5].innerText * 1;
+            if (chk[0].checked) {
+                total += td[1].innerText * 1;
+            } else {
+                total -= td[1].innerText * 1;
+            }
+            td[5].innerText = total;
+        }
+
+        var chk = document.querySelectorAll("input");
+        chk[1].onclick = function () {
+            var total = td[5].innerText * 1;
+            if (chk[1].checked) {
+                total += td[2].innerText * 1;
+            } else {
+                total -= td[2].innerText * 1;
+            }
+            td[5].innerText = total;
+        }
+
+        var chk = document.querySelectorAll("input");
+        chk[2].onclick = function () {
+            var total = td[5].innerText * 1;
+            if (chk[2].checked) {
+                total += td[3].innerText * 1;
+            } else {
+                total -= td[3].innerText * 1;
+            }
+            td[5].innerText = total;
+        }
+    </script>
+</body>
+
+</html>

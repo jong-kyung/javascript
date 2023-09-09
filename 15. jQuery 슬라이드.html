@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 슬라이드</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #slogan {
+            height: 100vh;
+            max-width: 100%;
+            overflow: hidden
+        }
+
+        #slogan ul {
+            width: 1000%;
+            display: flex;
+            height: 100%;
+        }
+
+        li {
+            background: center / cover url(../web/img/kor.jpg);
+            width: calc(100% / 6);
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        li:nth-child(2) {
+            background-image: url(../web/img/ame.jpg)
+        }
+
+        li:nth-child(3) {
+            background-image: url(../web/img/chi.jpg)
+        }
+
+        li:nth-child(4) {
+            background-image: url(../web/img/bri.jpg)
+        }
+
+        li:nth-child(5) {
+            background-image: url(../web/img/ind.jpg)
+        }
+
+        li:nth-child(6) {
+            background-image: url(../web/img/jap.jpg)
+        }
+
+        #slogan #bt {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            width: 0;
+        }
+
+        #slogan button {
+            position: fixed;
+            left: 50px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: .3;
+        }
+
+        #slogan button:hover {
+            opacity: 1;
+        }
+
+        #slogan button:nth-of-type(2) {
+            left: auto;
+            right: 50px;
+        }
+
+        #slogan #page {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            display: flex;
+            gap: 20px
+        }
+
+        #slogan #page span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: .2;
+            cursor: pointer;
+            transition: ease all .3s;
+        }
+
+        #slogan #page span.on,
+        #slogan #page span:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="slogan">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <!-- aria-hidden="true" : 스크린 리더기가 읽지 못함 -->
+        </ul>
+        <div id="page"></div>
+        <div id="bt"><button>
+                <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+            <button><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        //내가 한거
+        // var li_width = 0
+        // var timeOut = 0
+        // function anime() {
+        //     li_width -= $("#slogan li").width();
+        //     $("#slogan ul").animate({
+        //         marginLeft: li_width
+        //     }, 1000)
+        //     if (timeOut == 4000) {
+        //         clearInterval(interval);
+        //         for (i = 1; i < 6; i++) {
+        //             li_width += $("#slogan li").width();
+        //             $("#slogan ul").delay(2000).animate({
+        //                 marginLeft: li_width
+        //             }, 1000)
+        //         }
+        //     }
+        //     timeOut += 1000;
+        // }
+        // var interval = setInterval(anime, 3000);
+
+        //선생님
+        // ul의 폭값 자동지정
+        var li_first = $("#slogan li").eq(0).clone();
+        $("#slogan ul").append(li_first)
+        var li_length = $("#slogan li").length;
+        $("#slogan ul").width(li_length * 100 + "%");
+        // ul을 li 폭값만큼 이동
+        var li_width = $("#slogan li").width();
+        var n = 0;
+        // 자동 무한슬라이드 기능
+        setInterval(function () {
+            n++;
+            $("#slogan ul").animate({
+                marginLeft: "-" + li_width * n + "px"
+            }, 500, function () { //콜백함수
+                if (n == 6) {
+                    n = 0;
+                    $("#slogan ul").css("margin-left", 0)
+                }
+            });
+        }, 1000);
+
+        //클릭형 슬라이드
+        // $("#slogan button").click(function () {
+        //     var bt = $("#slogan button").index(this); // 전체선택자 .index(내가 원하는 선택자) 인덱스 괄호에 this를 쓸땐 생략해도 됨.  ==> 내가 원하는 선택자가 몇번째인지 알 수 있음.
+        //     if (bt == 0) {
+        //         if (n == 0) {
+        //             $("#slogan ul").css("margin-left", -li_width * (li_length - 1))
+        //             n = li_length - 2;
+        //         } else {
+        //             n--;
+        //         }
+        //     } else {
+        //         n++;
+        //     }
+        //     $("#slogan ul").stop().animate({ // stop()을 넣어주는 이유 : 애니메이션이 누적되는것을 막기 위함. ==> 기존의 움직임을 멈추게함.
+        //         marginLeft: "-" + li_width * n + "px"
+        //     }, 500, function () {
+        //         if (n == li_length - 1) {
+        //             n = 0;;
+        //             $("#slogan ul").css("margin-left", 0);
+        //         }
+        //     });
+        //     $("#page span").removeClass("on")
+        //     $("#page span").eq(n).addClass("on")
+        //     if (n == li_lenght - 1) { $("#page span").eq(0).addclass("on") };
+        // })
+
+        //페이지네이션 span 넣기
+        // var span = "";
+        // for (var i = 0; i < li_length - 1; i++) {
+        //     span += "<span></span>"
+        // }
+        // $("#page").html(span);
+        // $("#page span").eq(0).addClass("on"); 
+        
+        // //페이지네이션 + 무한슬라이드
+        // setInterval(function () {
+        //     n++;
+        //     $("#slogan ul").animate({
+        //         marginLeft: "-" + li_width * n + "px"
+        //     }, 500, function () { // 콜백함수
+        //         if (n == 6) {
+        //             n = 0;
+        //             $("#slogan ul").css("margin-left", 0);
+        //         }
+        //     });
+        // $("#page span").removeClass("on");
+        // $("#page span").eq(n).addClass("on");
+        // if(n==li_length-1) $("#page span").eq(0).addClass("on");            
+        // }, 1000);
+    </script>
+</body>
+
+</html>

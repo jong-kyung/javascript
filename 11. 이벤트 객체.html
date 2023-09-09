@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 객체</title>
+    <style>
+        #stage,
+        #stage2 {
+            width: 400px;
+            height: 500px;
+            border: 3px dashed #999;
+            position: relative;
+            display: inline-block;
+        }
+
+        #mario {
+            width: 100px;
+            position: absolute;
+            left: 0;
+            top: 0
+        }
+
+        #zelda {
+            background: no-repeat 0 0 /1200px url(img/30_sprite_img.png);
+            width: 120px;
+            height: 120px;
+            animation: action 1s infinite steps(10);
+            position: absolute;
+        }
+
+        @keyframes action {
+            0% {
+                background-position-x: 0
+            }
+
+            100% {
+                background-position-x: -1200px;
+            }
+        }
+
+        @keyframes action2 {
+            0% {
+                background-position-x: -10px
+            }
+
+            100% {
+                background-position-x: -1210px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이벤트 객체(Event Object)</h1>
+    <p>이벤트가 가지고 있는 고유의 정보를 이용하기 위함</p>
+    <h2>키보드 이벤트 객체</h2>
+    <ul>
+        <li>keyCode : 키보드 값을 반환</li>
+        <li>ctrlKey : ctrl 키를 눌렀을 때는 true, 아니면 false</li>
+        <li>altKey : alt 키를 눌렀을 때는 true, 아니면 false</li>
+        <li>shiftKey : shift 키를 눌렀을 때는 true, 아니면 false</li>
+    </ul>
+    <div id="stage">
+        <img src="img/mario.png" alt="마리오" id="mario">
+    </div>
+    <div id="stage2">
+        <div id="zelda"></div>
+    </div>
+    <script>
+        var mLeft = 0;
+        var mTop = 0;
+        var mario = document.querySelector("#mario")
+        var stage = document.querySelector("#stage")
+        var moveX = false;
+        function move(key) {
+            setTimeout(function () { //지연시작
+                if (key == 39 && moveX && mLeft < parseInt(getComputedStyle(stage).width) - parseInt(getComputedStyle(mario).width)) {
+                    mLeft += 10
+                    mario.style.left = mLeft + "px";
+                    mario.style.transform = "rotateY(0deg)"
+                    move(key);
+                }
+                if (key == 37 && moveX && mLeft > 0) {
+                    mLeft -= 10
+                    mario.style.left = mLeft + "px";
+                    mario.style.transform = "rotateY(180deg)"
+                    move(key);
+                }
+            }, 50)
+        }
+        document.onkeyup = function (e) {
+            if (e.keyCode == 39 || e.keyCode == 37) {
+                moveX = false;
+            }
+        }
+        document.onkeydown = function (e) { // ()안엔 그저 변수일뿐임. e나 event를 자주 씀
+            // alert(e.keyCode);
+            // 방향키 왼쪽 누르면 경고창에 "왼쪽키" 37
+            // if(e.keyCode == 37) {alert("왼쪽키 누름")}
+            // ctrl(17) p(80)
+            if (e.ctrlKey && e.keyCode == 80) {
+                alert("나가");
+                return false; // 이후에 들어가는 모든 이벤트 중단
+            }
+
+            // 오른쪽 39 , 왼쪽 37, 위 38 , 아래 40
+            // 오른쪽
+            if (!moveX && e.keyCode == 39) {
+                moveX = true;
+                move(39);
+            }
+
+            // 왼쪽키
+            if (!moveX && e.keyCode == 37) {
+                moveX = true;
+                move(37);
+            }
+            // 아래
+            if (e.keyCode == 40 && mTop < parseInt(getComputedStyle(stage).height) - parseInt(getComputedStyle(mario).height)) {
+                mTop += 10;
+                mario.style.top = mTop + "px";
+            }
+            // 위
+            if (e.keyCode == 38 && mTop > 0) {
+                mTop -= 10
+                mario.style.top = mTop + "px";
+            }
+        }
+
+        // var zelda = document.querySelector("#zelda")
+        // var stage2 = document.querySelector("#stage2")
+        // document.onkeydown = function(event) {
+        //     if(event.keyCode == 39 && mLeft < parseInt(getComputedStyle(stage2).width) - parseInt(getComputedStyle(zelda).width)) {
+        //         mLeft+=10
+        //         zelda.style.left = mLeft+"px";
+        //         zelda.style.transform = "rotateY(0deg)"
+        //         zelda.style.backgroundPosition ="0px 0px"
+        //         zelda.style.animation ="action 1s infinite steps(10)"
+        //     }
+        //     // 왼쪽
+        //     if(event.keyCode == 37 && mLeft > 0) {
+        //         mLeft-=10
+        //         zelda.style.left = mLeft+"px";
+        //         zelda.style.backgroundPosition ="0px 0px"
+        //         zelda.style.transform = "rotateY(180deg)"
+        //         zelda.style.animation ="action 1s infinite steps(10)"
+        //     }
+        //     // 아래
+        //     if(event.keyCode == 40 && mTop < parseInt(getComputedStyle(stage2).height) - parseInt(getComputedStyle(zelda).height)) {
+        //         mTop+=10;
+        //         zelda.style.top = mTop + "px";
+        //         zelda.style.transform = "rotateY(0deg)"
+        //         zelda.style.backgroundPosition ="-10px -240px"
+        //         zelda.style.animation ="action2 1s infinite steps(10)"
+        //     }
+        //     // 위
+        //     if(event.keyCode == 38 && mTop >0) {
+        //         mTop -=10
+        //         zelda.style.top = mTop + "px";
+        //         zelda.style.transform = "rotateY(0deg)"
+        //         zelda.style.animation ="action2 1s infinite steps(10)"
+        //         zelda.style.backgroundPosition ="-10px -360px"
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
